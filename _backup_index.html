@@ -310,12 +310,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;ba
     <div class="tb-acts">
       <div class="view-tgl"><button class="vb active" id="gridBtn" title="Cuadrícula"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button><button class="vb" id="listBtn" title="Lista"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></button></div>
       <div class="tb-div"></div>
-      <button class="tb-btn primary" id="importBtn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Importar XML</span></button>
+      <button class="tb-btn primary" id="importBtn"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Importar</span></button>
     </div>
   </div>
 
   <div class="canvas-wrap" id="canvasWrap">
-    <div class="drop-hint"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Suelta tu archivo .drawio aquí</span></div>
+    <div class="drop-hint"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Suelta aquí — .drawio · .xml · .svg · .png · .jpg</span></div>
     <div class="canvas" id="canvas">
       <div class="cat-sec visible cat--tx" id="sec-tx"><div class="cat-hd"><div class="cat-icw"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><span class="cat-title">Arquitectura Transaccional</span><span class="cat-sub" id="lbTx"></span><div class="cat-ln"></div></div><div class="dg" id="gTx"></div></div>
       <div class="cat-sec visible cat--cl" id="sec-cl"><div class="cat-hd"><div class="cat-icw"><svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div><span class="cat-title">Soluciones Cloud</span><span class="cat-sub" id="lbCl"></span><div class="cat-ln"></div></div><div class="dg" id="gCl"></div></div>
@@ -347,7 +347,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;ba
   <div class="imp-box">
     <div class="imp-head">
       <div class="imp-head-ic"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-      <h3>Importar diagrama draw.io</h3>
+      <h3 id="impModalTitle">Importar diagrama draw.io</h3>
       <button class="mo-close" id="impClose"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
     <div class="imp-body">
@@ -366,8 +366,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;ba
         <div class="dz" id="impDz">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <p>Arrastra tu archivo aquí</p>
-          <small>Formatos: .drawio · .xml (mxGraph)</small>
-          <input type="file" id="impFile" accept=".drawio,.xml,.drawio.xml"/>
+          <small>Formatos: .drawio · .xml · .svg · .png · .jpg · .webp</small>
+          <input type="file" id="impFile" accept=".drawio,.xml,.drawio.xml,.svg,.png,.jpg,.jpeg,.webp"/>
         </div>
       </div>
       <div class="or-sep">o pega el XML directamente</div>
@@ -379,7 +379,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;ba
     </div>
     <div class="imp-foot">
       <button class="tb-btn" id="impPreviewBtn"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>Vista previa</span></button>
-      <span class="spacer"></span>
+      <span id="impErr" style="flex:1;font-size:11.5px;color:#ef4444;padding:0 8px;display:none"></span>
+      <span class="spacer" id="impSpacer"></span>
       <button class="tb-btn" id="impCancel">Cancelar</button>
       <button class="tb-btn primary" id="impSave">Guardar diagrama</button>
     </div>
@@ -475,14 +476,16 @@ class DrawioParser {
       // Tiene elemento <diagram> — archivo .drawio estándar
       const diagramEl = doc.querySelector('diagram');
       if (diagramEl) {
+        // Caso 1: sin comprimir → mxGraphModel es hijo directo de <diagram>
+        const mxChild = diagramEl.querySelector('mxGraphModel');
+        if (mxChild) return new XMLSerializer().serializeToString(mxChild);
+
+        // Caso 2: comprimido → contenido es base64 o URL-encoded
         const rawContent = diagramEl.textContent.trim();
-        if (!rawContent) throw new Error('El diagrama está vacío');
-        // URL-decode si está URI-codificado (formato más antiguo)
+        if (!rawContent) throw new Error('El diagrama está vacío. Guarda el archivo desde draw.io con "Extras → Edit Diagram" y copia el XML.');
         let content = rawContent;
         try { content = decodeURIComponent(rawContent); } catch (_) { content = rawContent; }
-        // Si ya es XML → diagrama sin comprimir
         if (content.trim().startsWith('<')) return content;
-        // De lo contrario: base64+deflate
         return await DrawioParser.decompress(content);
       }
       // <mxGraphModel> directamente en el XML
@@ -1107,12 +1110,13 @@ function makeCard(d) {
   // Actions overlay — import button on every card
   const acts=document.createElement('div');
   acts.className='card-actions';
-  const impCardBtn=actBtn(`<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`, d.svgCache?'Actualizar XML draw.io':'Importar XML draw.io');
+  const _tip=d.svgCache?'Actualizar XML draw.io':d._imported?'Reemplazar archivo':'Importar imagen o XML';
+  const impCardBtn=actBtn(`<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,_tip);
   impCardBtn.addEventListener('click', e=>{ e.stopPropagation(); openImport(d); });
   acts.appendChild(impCardBtn);
-  if (d.svgCache) {
-    const dlBtn=actBtn(`<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,'Descargar SVG');
-    dlBtn.addEventListener('click', e=>{ e.stopPropagation(); downloadSVG(d); });
+  if (d.svgCache || d._imported) {
+    const dlBtn=actBtn(`<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,d.svgCache?'Descargar SVG':'Descargar imagen');
+    dlBtn.addEventListener('click', e=>{ e.stopPropagation(); downloadDiagram(d); });
     acts.appendChild(dlBtn);
     const delBtn=actBtn(`<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,'Eliminar', true);
     delBtn.addEventListener('click', e=>{ e.stopPropagation(); deleteDiagram(d); });
@@ -1209,7 +1213,7 @@ function openModal(d) {
     zoomCtl.classList.add('visible');
     moEditXml.style.display='';
     moEditXml.onclick=()=>{ closeModal(); openImport(d); };
-    moDownload.onclick=()=>downloadSVG(d);
+    moDownload.onclick=()=>downloadDiagram(d);
   } else {
     moImg.style.display='';
     moImg.src=d.file||'';
@@ -1237,24 +1241,65 @@ document.getElementById('zbReset').addEventListener('click', ()=>activePZ?.reset
 /* ═══════════════════════════════════════════════════════════════
    IMPORT MODAL
 ════════════════════════════════════════════════════════════════ */
+const impModalTitle=document.getElementById('impModalTitle');
+const impErrEl=document.getElementById('impErr');
+const impSpacerEl=document.getElementById('impSpacer');
+function showImpErr(msg){ impErrEl.textContent=msg||''; impErrEl.style.display=msg?'':'none'; impSpacerEl.style.display=msg?'none':''; }
+
+let impIsImage=false, impImgUrl='';
+
+function isImgFile(f){ return /\.(svg|png|jpe?g|webp|gif)$/i.test(f.name)||f.type.startsWith('image/'); }
+
+function loadImgFile(f){
+  const r=new FileReader();
+  r.onload=ev=>{
+    impIsImage=true; impImgUrl=ev.target.result;
+    impXml.value='';
+    showImpErr('');
+    showImgPreview(impImgUrl, f.name);
+  };
+  r.readAsDataURL(f);
+}
+
+function showImgPreview(url, label='') {
+  impPreview.classList.add('visible');
+  impPvInfo.textContent=label||'Imagen';
+  impPvBody.innerHTML='';
+  const img=document.createElement('img');
+  img.src=url;
+  img.style.cssText='max-width:100%;max-height:100%;object-fit:contain;border-radius:4px';
+  img.onerror=()=>{ impPvBody.innerHTML='<div class="imp-preview-err">No se pudo cargar la imagen</div>'; };
+  impPvBody.appendChild(img);
+}
+
 function openImport(existing=null) {
   editingDiagram=existing;
+  impIsImage=false; impImgUrl='';
   impName.value=existing?.name||'';
   impDesc.value=existing?.desc||'';
   impCat.value=existing?.cat||'cl';
-  // Lock category for static catalog cards (non-imported)
   impCat.disabled=!!(existing && !existing._imported);
   impXml.value=existing?.sourceXml||'';
-  impFile.value='';
+  try { impFile.value=''; } catch(_){}
   impPreview.classList.remove('visible');
   impPvBody.innerHTML='';
-  // Update modal title to reflect context
-  document.querySelector('#impModal .imp-head h3').textContent=
-    existing ? (existing.svgCache ? 'Actualizar diagrama draw.io' : 'Importar XML — '+existing.name) : 'Importar diagrama draw.io';
+  showImpErr('');
+  impModalTitle.textContent=existing
+    ? (existing.svgCache ? 'Actualizar XML — '+existing.name : 'Importar — '+existing.name)
+    : 'Importar diagrama';
   impModal.classList.add('open');
-  setTimeout(()=>{ if(!existing?.sourceXml) impXml.focus(); else impFile.focus(); },200);
+  setTimeout(()=>impName.focus(),200);
+  // Pre-show existing content
+  if (existing?.sourceXml) setTimeout(()=>previewXML(),300);
+  else if (existing?.file?.startsWith('data:')) setTimeout(()=>{ impIsImage=true; impImgUrl=existing.file; showImgPreview(existing.file); },300);
 }
-function closeImport() { impModal.classList.remove('open'); editingDiagram=null; impCat.disabled=false; document.querySelector('#impModal .imp-head h3').textContent='Importar diagrama draw.io'; }
+function closeImport() {
+  impModal.classList.remove('open');
+  editingDiagram=null; impIsImage=false; impImgUrl='';
+  impCat.disabled=false;
+  showImpErr('');
+  impModalTitle.textContent='Importar diagrama';
+}
 
 document.getElementById('importBtn').addEventListener('click',()=>openImport());
 document.getElementById('importSbBtn').addEventListener('click',()=>openImport());
@@ -1263,24 +1308,44 @@ document.getElementById('impCancel').addEventListener('click',closeImport);
 impModal.addEventListener('click',e=>{ if(e.target===impModal)closeImport(); });
 
 // File input
-impFile.addEventListener('change',()=>{ const f=impFile.files[0]; if(!f)return; const r=new FileReader(); r.onload=ev=>{ impXml.value=ev.target.result; previewXML(); }; r.readAsText(f); });
+impFile.addEventListener('change',()=>{ const f=impFile.files[0]; if(!f)return; handleFileLoad(f); });
+
+function handleFileLoad(f) {
+  if (isImgFile(f)) { loadImgFile(f); }
+  else { impIsImage=false; impImgUrl=''; const r=new FileReader(); r.onload=ev=>{ impXml.value=ev.target.result; previewXML(); }; r.readAsText(f); }
+}
 
 // Drop zone
 impDz.addEventListener('dragover', e=>{ e.preventDefault(); impDz.classList.add('over'); });
 impDz.addEventListener('dragleave',()=>impDz.classList.remove('over'));
-impDz.addEventListener('drop', e=>{ e.preventDefault(); impDz.classList.remove('over'); const f=e.dataTransfer.files[0]; if(!f)return; const r=new FileReader(); r.onload=ev=>{ impXml.value=ev.target.result; previewXML(); }; r.readAsText(f); });
+impDz.addEventListener('drop', e=>{ e.preventDefault(); impDz.classList.remove('over'); const f=e.dataTransfer.files[0]; if(f)handleFileLoad(f); });
 
 // Canvas drop
 canvasWrap.addEventListener('dragover', e=>{ e.preventDefault(); canvasWrap.classList.add('drag-over'); });
 canvasWrap.addEventListener('dragleave',()=>canvasWrap.classList.remove('drag-over'));
-canvasWrap.addEventListener('drop', e=>{ e.preventDefault(); canvasWrap.classList.remove('drag-over'); const f=e.dataTransfer.files[0]; if(!f)return; const r=new FileReader(); r.onload=ev=>{ openImport(); setTimeout(()=>{ impXml.value=ev.target.result; previewXML(); },100); }; r.readAsText(f); });
+canvasWrap.addEventListener('drop', e=>{
+  e.preventDefault(); canvasWrap.classList.remove('drag-over');
+  const f=e.dataTransfer.files[0]; if(!f)return;
+  if (isImgFile(f)) {
+    openImport();
+    setTimeout(()=>loadImgFile(f),100);
+  } else {
+    const r=new FileReader(); r.onload=ev=>{ openImport(); setTimeout(()=>{ impXml.value=ev.target.result; previewXML(); },100); }; r.readAsText(f);
+  }
+});
 
-// Preview button
+// Preview button + auto-preview on paste
 document.getElementById('impPreviewBtn').addEventListener('click', previewXML);
+let _pvTimer=null;
+impXml.addEventListener('input', ()=>{
+  impIsImage=false; impImgUrl='';
+  clearTimeout(_pvTimer); _pvTimer=setTimeout(()=>{ if(impXml.value.trim().length>20) previewXML(); },600);
+});
 
 async function previewXML() {
   const raw=impXml.value.trim();
   if (!raw) return;
+  showImpErr('');
   impPvBody.innerHTML='<div style="padding:20px;font-size:12px;color:var(--tx3)">Renderizando…</div>';
   impPreview.classList.add('visible');
   try {
@@ -1295,6 +1360,7 @@ async function previewXML() {
   } catch(err) {
     impPvBody.innerHTML=`<div class="imp-preview-err">${err.message}</div>`;
     impPvInfo.textContent='';
+    showImpErr('XML inválido — revisa el contenido');
   }
 }
 
@@ -1302,36 +1368,30 @@ async function previewXML() {
 document.getElementById('impSave').addEventListener('click', async ()=>{
   const name=impName.value.trim();
   const raw=impXml.value.trim();
-  if (!name) { impName.focus(); impName.style.borderColor='#ef4444'; setTimeout(()=>impName.style.borderColor='',1500); return; }
-  if (!raw)  { impXml.focus(); impXml.style.borderColor='#ef4444'; setTimeout(()=>impXml.style.borderColor='',1500); return; }
+  showImpErr('');
+  if (!name) { impName.focus(); impName.style.borderColor='#ef4444'; setTimeout(()=>impName.style.borderColor='',1500); showImpErr('Completa el nombre del diagrama'); return; }
+  if (!impIsImage && !raw) { impXml.focus(); impXml.style.borderColor='#ef4444'; setTimeout(()=>impXml.style.borderColor='',1500); showImpErr('Carga un archivo o pega el XML'); return; }
 
   const btn=document.getElementById('impSave');
-  btn.disabled=true; btn.textContent='Procesando…';
+  btn.disabled=true; btn.textContent='Guardando…';
   try {
-    const renderer=await DrawioRenderer.fromString(raw);
-    const svgEl=renderer.render();
-    const svgStr=svgEl.outerHTML;
-
-    const d={
-      id: editingDiagram?.id || 'dw_'+Date.now(),
-      name, cat:impCat.value,
-      desc: impDesc.value.trim()||'Importado desde draw.io',
-      svgCache: svgStr,
-      sourceXml: raw,
-      file: null,
-      _imported: true
-    };
-
-    // Remove existing if editing
-    if (editingDiagram) { const i=DIAGRAMS.findIndex(x=>x.id===d.id); if(i>=0)DIAGRAMS.splice(i,1); }
+    let d;
+    if (impIsImage && impImgUrl) {
+      d={ id:editingDiagram?.id||'dw_'+Date.now(), name, cat:impCat.value, desc:impDesc.value.trim()||'Imagen importada', file:impImgUrl, svgCache:null, sourceXml:null, _imported:true };
+    } else {
+      const renderer=await DrawioRenderer.fromString(raw);
+      const svgEl=renderer.render();
+      d={ id:editingDiagram?.id||'dw_'+Date.now(), name, cat:impCat.value, desc:impDesc.value.trim()||'Importado desde draw.io', svgCache:svgEl.outerHTML, sourceXml:raw, file:null, _imported:true };
+    }
+    const i=DIAGRAMS.findIndex(x=>x.id===d.id);
+    if(i>=0) DIAGRAMS.splice(i,1);
     DIAGRAMS.push(d);
     DiagramStore.add(d);
     closeImport();
     renderAll();
-    // Scroll to category
     setTimeout(()=>{ const sec=document.getElementById('sec-'+d.cat); if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'}); },200);
   } catch(err) {
-    alert('Error al procesar el XML:\n'+err.message);
+    showImpErr('Error: '+err.message);
   } finally {
     btn.disabled=false; btn.textContent='Guardar diagrama';
   }
@@ -1340,9 +1400,15 @@ document.getElementById('impSave').addEventListener('click', async ()=>{
 /* ═══════════════════════════════════════════════════════════════
    UTILITIES
 ════════════════════════════════════════════════════════════════ */
-function downloadSVG(d) {
-  const blob=new Blob([d.svgCache],{type:'image/svg+xml'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=d.name.replace(/[^a-z0-9]/gi,'_')+'.svg'; a.click(); URL.revokeObjectURL(a.href);
+function downloadDiagram(d) {
+  const safe=d.name.replace(/[^a-z0-9]/gi,'_');
+  if (d.svgCache) {
+    const blob=new Blob([d.svgCache],{type:'image/svg+xml'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=safe+'.svg'; a.click(); URL.revokeObjectURL(a.href);
+  } else if (d.file?.startsWith('data:')) {
+    const ext=(d.file.match(/^data:image\/([^;]+)/)||[])[1]||'png';
+    const a=document.createElement('a'); a.href=d.file; a.download=safe+'.'+(ext==='jpeg'?'jpg':ext); a.click();
+  }
 }
 
 function deleteDiagram(d) {

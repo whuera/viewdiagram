@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Diagram {
+  id          String   @id @default(cuid())
+  name        String
+  cat         String
+  description String   @default("")
+  filePath    String?
+  svgCache    String?
+  sourceXml   String?
+  imageData   String?
+  isStatic    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

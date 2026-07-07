@@ -17,6 +17,9 @@ node_modules/
 # Build
 dist/
 
+# Leftover originals (moved to public/)
+diagrams/cloud/
+
 # OS
 .DS_Store
 Thumbs.db

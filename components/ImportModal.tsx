@@ -31,7 +31,7 @@ export default function ImportModal({ open, editing, defaultCat, onClose, onSave
   const [dzOver, setDzOver] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
-  const pvTimer = useRef<ReturnType<typeof setTimeout>>(null)
+  const pvTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const title = editing
     ? (editing.svgCache ? `Actualizar XML — ${editing.name}` : `Importar — ${editing.name}`)

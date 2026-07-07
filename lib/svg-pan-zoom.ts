@@ -71,8 +71,14 @@ export class SvgPanZoom {
     this._apply()
   }
 
+  private _dragEnabled = true
+  setDragEnabled(v: boolean) {
+    this._dragEnabled = v
+    if (!v) { this.drag = false; this.el.classList.remove('panning') }
+  }
+
   private _onWheel(e: WheelEvent) { e.preventDefault(); this.zoomBy(e.deltaY < 0 ? 1.12 : .88, e.clientX, e.clientY) }
-  private _onPD(e: PointerEvent) { this.drag = true; this.el.classList.add('panning'); this.lx = e.clientX; this.ly = e.clientY; this.el.setPointerCapture(e.pointerId) }
+  private _onPD(e: PointerEvent) { if (!this._dragEnabled) return; this.drag = true; this.el.classList.add('panning'); this.lx = e.clientX; this.ly = e.clientY; this.el.setPointerCapture(e.pointerId) }
   private _onPM(e: PointerEvent) { if (!this.drag) return; this.tx += e.clientX - this.lx; this.ty += e.clientY - this.ly; this.lx = e.clientX; this.ly = e.clientY; this._apply() }
   private _onPU() { this.drag = false; this.el.classList.remove('panning') }
 }

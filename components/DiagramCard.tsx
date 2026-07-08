@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { CATS, type Diagram } from '@/lib/types'
+import type { Role } from '@/lib/auth'
 
 interface Props {
   diagram: Diagram
@@ -10,6 +11,7 @@ interface Props {
   onImport: () => void
   onDelete: () => void
   onDownload: () => void
+  role: Role
 }
 
 const CAT_ICONS: Record<string, React.ReactNode> = {
@@ -68,7 +70,7 @@ function FileImage({ src, alt, cat }: { src: string; alt: string; cat: string })
   )
 }
 
-export default function DiagramCard({ diagram: d, view, onClick, onImport, onDelete, onDownload }: Props) {
+export default function DiagramCard({ diagram: d, view, onClick, onImport, onDelete, onDownload, role }: Props) {
   const isList = view === 'list'
   const hasContent = !!(d.svgCache || d.imageData)
   const showImportHint = !hasContent
@@ -144,7 +146,7 @@ export default function DiagramCard({ diagram: d, view, onClick, onImport, onDel
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
             </button>
-            {!d.isStatic && (
+            {role === 'admin' && !d.isStatic && (
               <button
                 className="card-act-btn danger"
                 title="Eliminar"

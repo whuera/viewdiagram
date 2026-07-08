@@ -1,6 +1,7 @@
 'use client'
 
 import { CATS, type Diagram } from '@/lib/types'
+import type { Role } from '@/lib/auth'
 import DiagramCard from './DiagramCard'
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
   onDownload: (d: Diagram) => void
   onDrop: (f: File) => void
   onImportNew: () => void
+  role: Role
 }
 
 const S = { stroke: 'currentColor', fill: 'none', strokeWidth: 1.75, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
@@ -31,7 +33,7 @@ const CAT_TITLES: Record<string, string> = {
   hb: 'Soluciones Híbridas',
 }
 
-export default function Canvas({ diagrams, curCat, curView, onOpenModal, onOpenImport, onDelete, onDownload, onDrop, onImportNew }: Props) {
+export default function Canvas({ diagrams, curCat, curView, onOpenModal, onOpenImport, onDelete, onDownload, onDrop, onImportNew, role }: Props) {
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); e.currentTarget.classList.add('drag-over') }
   const handleDragLeave = (e: React.DragEvent) => e.currentTarget.classList.remove('drag-over')
   const handleDrop = (e: React.DragEvent) => {
@@ -82,6 +84,7 @@ export default function Canvas({ diagrams, curCat, curView, onOpenModal, onOpenI
                       onImport={() => onOpenImport(d)}
                       onDelete={() => onDelete(d)}
                       onDownload={() => onDownload(d)}
+                      role={role}
                     />
                   ))
                 )}

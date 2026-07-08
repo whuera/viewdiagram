@@ -1,6 +1,7 @@
 'use client'
 
 import { type Diagram } from '@/lib/types'
+import type { Role } from '@/lib/auth'
 
 interface Props {
   isMini: boolean
@@ -14,6 +15,7 @@ interface Props {
   onImport: () => void
   openSections: Set<string>
   onToggleSection: (cat: string) => void
+  role: Role
 }
 
 const S = { stroke: 'currentColor', fill: 'none' } as const
@@ -43,7 +45,7 @@ function IcoHb() {
 
 const CAT_ICO: Record<string, () => JSX.Element> = { all: IcoAll, tx: IcoTx, cl: IcoCl, op: IcoOp, hb: IcoHb }
 
-export default function Sidebar({ isMini, onToggle, curCat, onSelectCat, q, onSearch, diagrams, onOpenModal, onImport, openSections, onToggleSection }: Props) {
+export default function Sidebar({ isMini, onToggle, curCat, onSelectCat, q, onSearch, diagrams, onOpenModal, onImport, openSections, onToggleSection, role }: Props) {
   const count = (cat: string) => cat === 'all' ? diagrams.length : diagrams.filter(d => d.cat === cat).length
   const Icon = ({ cat }: { cat: string }) => { const C = CAT_ICO[cat]; return C ? <C /> : null }
 

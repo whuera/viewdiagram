@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { CATS, type Diagram } from '@/lib/types'
+import type { Role } from '@/lib/auth'
 import { SvgPanZoom } from '@/lib/svg-pan-zoom'
 
 type Tool = 'select' | 'pan' | 'rect' | 'ellipse' | 'diamond' | 'text' | 'arrow'
@@ -29,9 +30,10 @@ interface Props {
   diagram: Diagram | null
   onClose: () => void
   onEditXml: (d: Diagram) => void
+  role: Role
 }
 
-export default function ViewerModal({ diagram, onClose, onEditXml }: Props) {
+export default function ViewerModal({ diagram, onClose, onEditXml, role }: Props) {
   const pzRef = useRef<SvgPanZoom | null>(null)
   const viewerRef = useRef<HTMLDivElement>(null)
   const overlayRef = useRef<HTMLDivElement>(null)
@@ -378,8 +380,8 @@ export default function ViewerModal({ diagram, onClose, onEditXml }: Props) {
         {/* TOOLBAR — always visible */}
         <div className="editor-toolbar">
 
-          {/* SVG-only: history + drawing tools */}
-          {hasSvg && (
+          {/* SVG-only, admin-only: history + drawing tools */}
+          {hasSvg && role === 'admin' && (
             <>
               <div className="et-grp">
                 <TB title="Deshacer (Ctrl+Z)" onClick={undo} disabled={!undoStack.length}>
@@ -424,26 +426,30 @@ export default function ViewerModal({ diagram, onClose, onEditXml }: Props) {
                 </TB>
               </div>
               <span className="et-sep"/>
-              <div className="et-grp">
-                <TB title="Acercar" onClick={() => pzRef.current?.zoomBy(1.2)}>
-                  <svg viewBox="0 0 24 24" {...S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                </TB>
-                <TB title="Ajustar al área" onClick={() => pzRef.current?.fit()}>
-                  <svg viewBox="0 0 24 24" {...S}><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-                </TB>
-                <TB title="Alejar" onClick={() => pzRef.current?.zoomBy(0.83)}>
-                  <svg viewBox="0 0 24 24" {...S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                </TB>
-              </div>
             </>
+          )}
+
+          {/* Pan/zoom always visible for SVG */}
+          {hasSvg && (
+            <div className="et-grp">
+              <TB title="Acercar" onClick={() => pzRef.current?.zoomBy(1.2)}>
+                <svg viewBox="0 0 24 24" {...S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </TB>
+              <TB title="Ajustar al área" onClick={() => pzRef.current?.fit()}>
+                <svg viewBox="0 0 24 24" {...S}><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+              </TB>
+              <TB title="Alejar" onClick={() => pzRef.current?.zoomBy(0.83)}>
+                <svg viewBox="0 0 24 24" {...S}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+              </TB>
+            </div>
           )}
 
           {/* Spacer */}
           <div style={{ flex: 1 }}/>
 
-          {/* Always visible: edit XML + download + save */}
+          {/* Download always visible; edit XML + save admin-only */}
           <div className="et-grp">
-            {hasSvg && (
+            {hasSvg && role === 'admin' && (
               <TB title="Editar XML fuente" onClick={() => { onClose(); if (diagram) onEditXml(diagram) }}>
                 <svg viewBox="0 0 24 24" {...S}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               </TB>
@@ -451,7 +457,7 @@ export default function ViewerModal({ diagram, onClose, onEditXml }: Props) {
             <TB title="Descargar" onClick={handleDownload}>
               <svg viewBox="0 0 24 24" {...S}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             </TB>
-            {hasSvg && undoStack.length > 0 && (
+            {hasSvg && role === 'admin' && undoStack.length > 0 && (
               <button
                 className={`et-btn et-save${saved ? ' et-saved' : ''}`}
                 onClick={handleSave} disabled={isSaving}

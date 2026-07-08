@@ -1,5 +1,14 @@
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 import { prisma } from '@/lib/db'
+import { verifyToken, COOKIE_NAME } from '@/lib/auth'
+
+async function requireAdmin() {
+  const token = cookies().get(COOKIE_NAME)?.value
+  if (!token) return null
+  const payload = await verifyToken(token)
+  return payload?.role === 'admin' ? payload : null
+}
 
 export async function GET() {
   const diagrams = await prisma.diagram.findMany({ orderBy: { sortOrder: 'asc' } })
@@ -7,6 +16,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const admin = await requireAdmin()
+  if (!admin) return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+
   const body = await req.json()
   const { name, cat, description, svgCache, sourceXml, imageData, filePath } = body
   if (!name || !cat) {

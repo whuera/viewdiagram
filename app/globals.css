@@ -250,6 +250,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif;ba
 .imp-foot{display:flex;align-items:center;gap:8px;padding:14px 20px;border-top:1px solid var(--border-lt);flex-shrink:0}
 .imp-foot .spacer{flex:1}
 
+/* ══ AUTH ══════════════════════════════════════════════════════ */
+.auth-wrap{position:fixed;inset:0;overflow:auto;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:24px}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-hv);padding:36px 32px;width:100%;max-width:380px;display:flex;flex-direction:column;gap:16px}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.auth-title{font-size:20px;font-weight:700;color:var(--tx1);letter-spacing:-.4px}
+.auth-sub{font-size:13px;color:var(--tx2);margin-top:-8px}
+.auth-label{display:block;font-size:12.5px;font-weight:500;color:var(--tx2);margin-bottom:5px}
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-eye{position:absolute;right:10px;bottom:9px;background:none;border:none;cursor:pointer;padding:2px;color:var(--tx3);display:flex;align-items:center}
+.auth-eye svg{width:16px;height:16px}
+.auth-eye:hover{color:var(--tx2)}
+.auth-submit{width:100%;height:38px;background:var(--ac);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background var(--t)}
+.auth-submit:hover:not(:disabled){background:var(--ac-hv)}
+.auth-submit:disabled{opacity:.65;cursor:not-allowed}
+.auth-error{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;border-radius:6px;padding:9px 12px;font-size:13px}
+.auth-forgot{background:none;border:none;color:var(--tx3);font-size:12.5px;cursor:pointer;padding:0;text-align:center;transition:color var(--t)}
+.auth-forgot:hover{color:var(--ac)}
+.auth-spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:auth-spin .7s linear infinite;flex-shrink:0}
+@keyframes auth-spin{to{transform:rotate(360deg)}}
+.auth-user-badge{display:flex;align-items:center;gap:6px;padding:0 6px}
+.auth-username{font-size:12.5px;font-weight:500;color:var(--tx2)}
+
 /* ══ RESPONSIVE ════════════════════════════════════════════════ */
 @media(max-width:768px){
   .sidebar{width:var(--sw-m)!important}
